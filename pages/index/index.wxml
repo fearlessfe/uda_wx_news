@@ -1,13 +1,29 @@
 <!--index.wxml-->
 <view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
+  <view class='nav'>
+    <view class='nav-item {{current===item.type?"active":""}}' wx:for="{{types}}" bindtap="getNews" data-type="{{item.type}}">{{item.name}}</view>
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
+    <view class='list'>
+      <view class='hot'>
+        <image class='hot-image' mode='scaleToFill' src='{{hotNews.firstImage}}'></image>
+        <view class='hot-title'>{{hotNews.title}}</view>
+        <view class='hot-source'>
+          <text>{{hotNews.source}}</text>
+          <text class='time' style='margin-left: {{hotNews.source?"40rpx":"0"}}'>{{hotNews.date}}</text>
+        </view>
+      </view>
+      <view class='list-item' wx:for="{{news}}" wx:key="{{item.id}}" bindtap='showDetail'  data-id="{{item.id}}">
+        <view class='item-left'>
+          <view class='item-title'>{{item.title}}</view>
+          <view class='item-source'>
+            <text>{{item.source}}</text>
+            <text class='time' style='margin-left: {{item.source?"40rpx":"0"}}'>{{item.date}}</text>
+          </view>
+        </view>
+        <view class='item-right'>
+          <image style='width: 210rpx;height:120rpx' mode='scaleToFill' src='{{item.firstImage}}'></image>
+        </view>
+      </view>
+    </view>
+
 </view>

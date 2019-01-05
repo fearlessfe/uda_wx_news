@@ -1,21 +1,76 @@
 /**index.wxss**/
-.userinfo {
+.container {
+  position: relative;
+}
+.nav {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding-left: 20rpx;
+  box-sizing: border-box;
+  font-size: 30rpx;
+  font-weight: 700;
+  color: white;
+  background-color: #2277ff;
+  z-index: 999;
 }
-
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
+.nav-item {
+  padding: 10rpx 20rpx;
+}
+.list {
+  width: 100%;
+  margin-top: 70rpx;
+}
+.hot {
+  width: 100%;
+  position: relative;
+}
+.hot-image {
+  width: 710rpx;
   margin: 20rpx;
-  border-radius: 50%;
 }
-
-.userinfo-nickname {
-  color: #aaa;
+.hot-title {
+  position: absolute;
+  left: 40rpx;
+  bottom: 80rpx;
+  width: 670rpx;
+  font-size: 40rpx;
+  font-weight: 700;
+  color: white;
 }
-
-.usermotto {
-  margin-top: 200px;
+.hot-source {
+  position: absolute;
+  left: 40rpx;
+  bottom: 40rpx;
+  font-size: 30rpx;
+  color: #ccc;
+}
+.list-item {
+  display: flex;
+  height: 160rpx;
+  margin: 20rpx;
+}
+.item-left {
+  width: 490rpx;
+  padding-right: 10rpx;
+}
+.item-title {
+  font-size: 30rpx;
+}
+.item-right {
+  width: 210rpx;
+  height: 120rpx;
+}
+.item-source {
+  font-size: 20rpx;
+  padding-top: 10rpx; 
+  color: grey;
+}
+.time {
+  display: inline-block;
+}
+.active {
+  border-bottom: 8rpx solid red;
 }

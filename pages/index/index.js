@@ -1,54 +1,88 @@
 //index.js
 //获取应用实例
 const app = getApp()
-
+const types = [
+  {
+    name: "国内",
+    type: "gn"
+  },
+  {
+    name: "国际",
+    type: "gj"
+  },
+  {
+    name: "财经",
+    type: "cj"
+  },
+  {
+    name: "娱乐",
+    type: "yl"
+  },
+  {
+    name: "军事",
+    type: "js"
+  },
+  {
+    name: "体育",
+    type: "ty"
+  },
+  {
+    name: "其他",
+    type: "other"
+  }
+]
 Page({
   data: {
-    motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    types,
+    news: '',
+    current: 'gn',
+    hotNews: ''
   },
   //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
+  onLoad() {
+    this.getNews(null)
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+    this.getNews(null,() => {
+      wx.stopPullDownRefresh()
     })
   },
-  onLoad: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
-  },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
+  getNews(event,cb) {
+    let type
+    if (event) type = event.currentTarget.dataset.type
+    else type=this.data.types[0].type
     this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
+      current: type
     })
-  }
+    wx.request({
+      url: 'https://test-miniprogram.com/api/news/list',
+      data: {
+        type
+      },
+      success: res => {
+        let result = res.data.result
+        result.forEach(item => {
+          item.date = item.date.substring(11,16)
+        })
+        let [hotNews, ...news] = result;
+        this.setData({
+          news,
+          hotNews
+        })
+      },
+      complete: () => {
+        cb && cb()
+      }
+    })
+  },
+  showDetail(event) {
+    let id = event.currentTarget.dataset.id
+    wx.navigateTo({
+      url: '/pages/detail/detail?id='+id,
+    })
+  },
 })

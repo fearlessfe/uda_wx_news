@@ -1,0 +1,29 @@
+<!--pages/detail/detail.wxml-->
+<scroll-view scroll-y style="height: 100%;">
+  <view class='container'>
+    <view class='title'>{{detail.title}}</view>
+    <view class='status'>
+      <view class='cource'>
+        <text>{{detail.source}}</text>
+        <text class='right-text'  style='margin-left: {{detail.source?"40rpx":"0"}}'>{{detail.date}}</text>
+      </view>
+      <view class='read-count'>
+        阅读
+        <text class='right-text' style='margin-left:"40rpx"'>{{detail.readCount}}</text>
+      </view>
+    </view>
+      <view class='content'>
+        <view wx:for="{{detail.content}}">
+          <block  wx:if="{{item.type==='strong'}}">
+            <view class='strong-text'>{{item.text}}</view>
+          </block>
+          <block  wx:if="{{item.type==='p'}}">
+            <view class='paragraph'>{{item.text}}</view>
+          </block>
+          <block  wx:if="{{item.type==='image'}}">
+            <image src='{{item.src}}' mode='scaleToFill' class='image'></image>
+          </block>
+        </view>
+      </view>
+  </view>
+</scroll-view>
