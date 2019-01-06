@@ -14,6 +14,10 @@
   padding: 20rpx 0;
   font-size: 20rpx;
 }
+.right-text {
+  display: inline-block;
+  margin-left: 20rpx;
+}
 .time {
   display: inline-block;
 }

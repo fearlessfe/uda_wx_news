@@ -6,7 +6,8 @@ Page({
    */
   data: {
     id: '',
-    detail: ""
+    detail: "",
+    defaultImage: 'http://via.placeholder.com/200x100'
   },
 
   /**
@@ -35,7 +36,11 @@ Page({
         this.setData({
           detail: result
         })
+        console.log(result)
       },
+      fail: error => {
+        console.error(error)
+      }
     })
   }
 })

@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="container">
   <view class='nav'>
-    <view class='nav-item {{current===item.type?"active":""}}' wx:for="{{types}}" bindtap="getNews" data-type="{{item.type}}">{{item.name}}</view>
+    <view class='nav-item {{current===item.type?"active":""}}' wx:for="{{types}}" wx:key="{{item.type}}" bindtap="getNews" data-type="{{item.type}}">{{item.name}}</view>
   </view>
     <view class='list'>
       <view class='hot'>
@@ -16,12 +16,12 @@
         <view class='item-left'>
           <view class='item-title'>{{item.title}}</view>
           <view class='item-source'>
-            <text>{{item.source}}</text>
-            <text class='time' style='margin-left: {{item.source?"40rpx":"0"}}'>{{item.date}}</text>
+            <text>{{item.source?item.source:"未知来源"}}</text>
+            <text class='time'>{{item.date}}</text>
           </view>
         </view>
         <view class='item-right'>
-          <image style='width: 210rpx;height:120rpx' mode='scaleToFill' src='{{item.firstImage}}'></image>
+          <image style='width: 210rpx;height:120rpx' mode='scaleToFill' src='{{item.firstImage?item.firstImage:defaultImage}}'></image>
         </view>
       </view>
     </view>

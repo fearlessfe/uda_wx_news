@@ -36,7 +36,8 @@ Page({
     types,
     news: '',
     current: 'gn',
-    hotNews: ''
+    hotNews: '',
+    defaultImage: 'http://via.placeholder.com/200x100'
   },
   //事件处理函数
   onLoad() {
@@ -54,7 +55,7 @@ Page({
   getNews(event,cb) {
     let type
     if (event) type = event.currentTarget.dataset.type
-    else type=this.data.types[0].type
+    else type=this.data.current
     this.setData({
       current: type
     })
@@ -73,6 +74,9 @@ Page({
           news,
           hotNews
         })
+      },
+      fail: error => {
+        console.error(error)
       },
       complete: () => {
         cb && cb()
